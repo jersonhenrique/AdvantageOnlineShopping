@@ -27,7 +27,7 @@ public class CadastroUsuarioLogin {
 	public void que_estou_acessando_a_aplicação() throws Throwable {
 
 		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\jerso\\Git\\CursoCucumber\\drivers\\chromedriver.exe");
+				"C:\\Users\\jerso\\Git\\AdvantageOnlineShopping\\AdvantageOnlineShopping\\drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		driver.manage().window().maximize();

@@ -3,9 +3,11 @@ Feature: Cadastro De Usuario e login
 
 Criar Cadstro de usuario no sistema Advantage Online Shopping
 
+Background:
+   Given que estou acessando a aplicação
+
 @Cadastro_usuario
 Scenario Outline: Cadastrar usuario com sucesso 
-	Given que estou acessando a aplicação
 	When clico no botão USER
 	And Clico no botão CREATE NEW ACCOUNT
 	And Preencha os Campos "<Login>" e "<Senha>"
@@ -16,11 +18,10 @@ Scenario Outline: Cadastrar usuario com sucesso
 	Examples:	 
       | Login       | Senha    |
       | Jcunha012g2 | A243005b |
-   
+      
    
 @Login_usuario
 Scenario Outline: login de usuario com sucesso 
-	Given que estou acessando a aplicação 
 	When clico no botão USER 
 	And Informe os Campos "<Login>" e "<Senha>" 
 	And clico no botão SIGN IN 
