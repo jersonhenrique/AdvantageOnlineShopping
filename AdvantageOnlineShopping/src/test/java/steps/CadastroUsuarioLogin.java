@@ -26,30 +26,38 @@ public class CadastroUsuarioLogin {
 
 	public void que_estou_acessando_a_aplicação() throws Throwable {
 
-		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\jerso\\Git\\AdvantageOnlineShopping\\AdvantageOnlineShopping\\drivers\\chromedriver.exe");
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
-		driver.get("http://advantageonlineshopping.com/#/");
-
+		try {
+			System.setProperty("webdriver.chrome.driver",
+			"C:\\Users\\jerso\\Git\\AdvantageOnlineShopping\\AdvantageOnlineShopping\\drivers\\chromedriver.exe");
+			driver = new ChromeDriver();
+			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+			driver.manage().window().maximize();
+			driver.get("http://advantageonlineshopping.com/#/");
+		} catch (Exception error) {
+			System.out.println("Não foi encontrado o caminho do ChromeDriver ou não foi possivel acessar a aplicação");
+		}
 	}
 
 	@When("^clico no botão USER$")
 	public void clico_no_botão_USER() throws Throwable {
 
-		WebElement botaoUser = driver.findElement(By.id("menuUser"));
-		botaoUser.click();
+		try {
+
+			WebElement botaoUser = driver.findElement(By.id("menuUser"));
+			botaoUser.click();
+		} catch (Exception error) {
+			System.out.println("Não foi possivel acessar o menu de ");
+		}
 	}
 
 	@When("^Clico no botão CREATE NEW ACCOUNT$")
 	public void clico_no_botão_CREATE_NEW_ACCOUNT() throws Throwable {
-		try {
 
-			WebElement element = (new WebDriverWait(driver, 10))
+		try {
+			WebElement botaoCreateNewAccount = (new WebDriverWait(driver, 10))
 					.until(ExpectedConditions.presenceOfElementLocated(By.linkText("CREATE NEW ACCOUNT")));
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
-			executor.executeScript("arguments[0].click();", element);
+			executor.executeScript("arguments[0].click();", botaoCreateNewAccount);
 		} catch (Exception error) {
 			System.out.println("O WebDriver não conseguiu clicar no botão CREATE NEW ACCOUNT");
 		}
@@ -99,7 +107,7 @@ public class CadastroUsuarioLogin {
 		}
 
 		catch (Exception error) {
-			System.out.println("o WebDriver não conseguiu clicar nos botões Iagree ou Register");
+			System.out.println("O usuário já foi cadastrado na aplicação ou WebDriver não conseguiu clicar nos botões Iagree e Register, ");
 		}
 
 	}
@@ -108,28 +116,32 @@ public class CadastroUsuarioLogin {
 	public void o_sistema_apresenta_o_usuário_logado_no_sistema() throws Throwable {
 
 		try {
-
-			WebElement texto = (new WebDriverWait(driver, 10))
+			WebElement loginTela = (new WebDriverWait(driver, 10))
 					.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#menuUserLink > span")));
 
-			String loginAtaual = texto.getText();
-			Assert.assertEquals(loginEsperado, loginAtaual);
+			String loginAtual = loginTela.getText();
+			Assert.assertEquals(loginEsperado, loginAtual);
 
 		}
 
 		catch (Exception error) {
 			System.out.println("o WebDriver não conseguiu cadastrar o usuário ou retornou login diferente do esperado");
 		}
+		finally {
+			driver.quit();
+		}
 	}
 
 	@When("^Informe os Campos \"([^\"]*)\" e \"([^\"]*)\"$")
-	public void Informe_os_Campos_e(String login, String senha) throws Throwable {
+	public void Informe_os_Campos_e(String loginInformado, String senhaInformada) throws Throwable {
+
 		try {
+			driver.findElement(By.name("username")).sendKeys(loginInformado);
+			driver.findElement(By.name("password")).sendKeys(senhaInformada);
 
-			driver.findElement(By.name("username")).sendKeys(login);
-			driver.findElement(By.name("password")).sendKeys(senha);
+		}
 
-		} catch (Exception error) {
+		catch (Exception error) {
 			System.out.println("O WebDriver não preencher login e senha");
 		}
 	}
@@ -142,7 +154,7 @@ public class CadastroUsuarioLogin {
 					.until(ExpectedConditions.visibilityOfElementLocated(By.id("sign_in_btnundefined")));
 
 			botaoSingIn.click();
-			
+
 		} catch (Exception error) {
 			System.out.println("O WebDriver não clicou no botão de login");
 		}
@@ -155,14 +167,14 @@ public class CadastroUsuarioLogin {
 
 			WebElement efetuarLogin = (new WebDriverWait(driver, 10))
 					.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#menuUserLink > span")));
-			
+
 			String loginUsuario = efetuarLogin.getText();
 			Assert.assertEquals("Jcunha03222", loginUsuario);
-		} 
-		
+		}
+
 		catch (Exception error) {
-		System.out.println("O WebDriver não conseguiu validar o login de usuario");
-	}
+			System.out.println("O WebDriver não conseguiu validar o login de usuario");
+		}
 
 		finally {
 			driver.quit();
