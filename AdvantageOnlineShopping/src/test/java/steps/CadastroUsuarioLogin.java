@@ -1,13 +1,18 @@
 package steps;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -121,7 +126,10 @@ public class CadastroUsuarioLogin {
 
 			String loginAtual = loginTela.getText();
 			Assert.assertEquals(loginEsperado, loginAtual);
-
+			
+			File printLoginCadastro = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+			FileUtils.copyFile(printLoginCadastro, new File("C:\\Users\\jerso\\Git\\AdvantageOnlineShopping\\AdvantageOnlineShopping\\target\\cucumber\\printScreen\\printCadastro.png"));
+			
 		}
 
 		catch (Exception error) {
@@ -170,6 +178,9 @@ public class CadastroUsuarioLogin {
 
 			String loginUsuario = efetuarLogin.getText();
 			Assert.assertEquals("Jcunha03222", loginUsuario);
+			
+			File printLogin = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+			FileUtils.copyFile(printLogin, new File("C:\\Users\\jerso\\Git\\AdvantageOnlineShopping\\AdvantageOnlineShopping\\target\\cucumber\\printScreen\\printLogin.png"));
 		}
 
 		catch (Exception error) {

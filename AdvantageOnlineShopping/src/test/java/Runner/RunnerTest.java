@@ -9,6 +9,8 @@ import cucumber.api.junit.Cucumber;
 		"json:target/cucumber.json" }, features = "src/test/resources/features/cadastro_usuario_login.feature", glue = {
 				"" }, monochrome = false, dryRun = false)
  
+
+
 public class RunnerTest {
 	
  
