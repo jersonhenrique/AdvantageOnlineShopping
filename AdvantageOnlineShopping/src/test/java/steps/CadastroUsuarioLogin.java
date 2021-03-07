@@ -12,7 +12,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -26,14 +25,15 @@ public class CadastroUsuarioLogin {
 
 	private WebDriver driver;
 	String loginEsperado;
-
+     
 	@Given("^que estou acessando a aplicação$")
 
 	public void que_estou_acessando_a_aplicação() throws Throwable {
 
 		try {
-			System.setProperty("webdriver.chrome.driver",
-			"C:\\Users\\jerso\\Git\\AdvantageOnlineShopping\\AdvantageOnlineShopping\\drivers\\chromedriver.exe");
+			String chromepath = System.getProperty("user.dir")
+	                + "\\drivers\\chromedriver.exe";
+	System.setProperty("webdriver.chrome.driver", chromepath);
 			driver = new ChromeDriver();
 			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
@@ -128,7 +128,7 @@ public class CadastroUsuarioLogin {
 			Assert.assertEquals(loginEsperado, loginAtual);
 			
 			File printLoginCadastro = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(printLoginCadastro, new File("C:\\Users\\jerso\\Git\\AdvantageOnlineShopping\\AdvantageOnlineShopping\\target\\cucumber\\printScreen\\printCadastro.png"));
+			FileUtils.copyFile(printLoginCadastro, new File("\\AdvantageOnlineShopping\\target\\cucumber\\printScreen\\printCadastro.png"));
 			
 		}
 
@@ -180,7 +180,7 @@ public class CadastroUsuarioLogin {
 			Assert.assertEquals("Jcunha03222", loginUsuario);
 			
 			File printLogin = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(printLogin, new File("C:\\Users\\jerso\\Git\\AdvantageOnlineShopping\\AdvantageOnlineShopping\\target\\cucumber\\printScreen\\printLogin.png"));
+			FileUtils.copyFile(printLogin, new File("\\AdvantageOnlineShopping\\target\\cucumber\\printScreen\\printLogin.png"));
 		}
 
 		catch (Exception error) {
